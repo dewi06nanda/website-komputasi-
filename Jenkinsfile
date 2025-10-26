@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         APP_PORT = '8081'
+        PATH = "C:\\Program Files\\Go\\bin;${env.PATH}"
     }
 
     stages {
