@@ -4,3 +4,12 @@ services:
     container_name: hello-world-dashboard
     ports:
       - "8081:80"
+
+stage('Run Docker Compose') {
+    steps {
+        bat '''
+            docker-compose down
+            docker-compose up -d --build
+        '''
+    }
+}
