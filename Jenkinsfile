@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         APP_PORT = '8081'
-        PATH = "C:\\Program Files\\Go\\bin;${env.PATH}"
     }
 
     stages {
@@ -23,7 +22,10 @@ pipeline {
 
         stage('Run Docker Compose') {
             steps {
-                bat 'docker-compose up -d --build'
+                bat '''
+                    docker-compose down
+                    docker-compose up -d --build
+                '''
             }
         }
     }
