@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'golang:1.22'
+        }
+    }
 
     environment {
         APP_PORT = '8081'
@@ -8,20 +12,20 @@ pipeline {
     stages {
         stage('Build Go App') {
             steps {
-                bat 'go mod tidy'
-                bat 'go build -o app main.go'
+                sh 'go mod tidy'
+                sh 'go build -o app main.go'
             }
         }
 
         stage('Docker Build') {
             steps {
-                bat 'docker build -t hello-world-dashboard .'
+                sh 'docker build -t hello-world-dashboard .'
             }
         }
 
         stage('Run Docker Compose') {
             steps {
-                bat 'docker-compose up -d --build'
+                sh 'docker-compose up -d --build'
             }
         }
     }
